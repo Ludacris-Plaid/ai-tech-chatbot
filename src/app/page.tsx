@@ -1,7 +1,7 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -115,40 +115,13 @@ function processLinks(text: string): React.ReactNode[] {
 
 export default function Chat() {
   const [input, setInput] = useState('');
-  const playTickRef = useRef<() => void>(() => {});
-  const { messages, sendMessage, status, error, regenerate, stop, setMessages } = useChat({
-    onFinish: () => playTickRef.current(),
-  });
+  const { messages, sendMessage, status, error, regenerate, stop, setMessages } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [followUps, setFollowUps] = useState<string[]>([]);
-  const audioCtxRef = useRef<AudioContext | null>(null);
 
   const isLoading = status === 'submitted' || status === 'streaming';
-
-  const playTick = useCallback(() => {
-    if (!soundEnabled) return;
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext as any)();
-    }
-    const ctx = audioCtxRef.current!;
-    if (ctx.state === 'suspended') ctx.resume();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800 + Math.random() * 400, ctx.currentTime);
-    gain.gain.setValueAtTime(0.02, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.05);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.05);
-  }, [soundEnabled]);
-
-  // Keep ref in sync so onFinish always calls the latest playTick
-  playTickRef.current = playTick;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -242,13 +215,6 @@ export default function Chat() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setSoundEnabled((v) => !v)}
-              className="hidden sm:flex items-center gap-1.5 text-xs text-im-text-dim hover:text-im-green transition font-mono cursor-pointer"
-              title={soundEnabled ? 'Mute typing sounds' : 'Enable typing sounds'}
-            >
-              <span>{soundEnabled ? 'sound on' : 'sound off'}</span>
-            </button>
             <button
               onClick={() => setMessages([])}
               className="hidden sm:flex items-center gap-1.5 text-xs text-im-text-dim hover:text-im-green transition font-mono cursor-pointer"
