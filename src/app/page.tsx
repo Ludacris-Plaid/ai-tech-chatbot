@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import AnimatedLogo from './components/AnimatedLogo';
 
 const SUGGESTIONS = [
   { icon: '⚡', text: 'How can Indications Media AI transform my business?' },
@@ -110,15 +111,6 @@ function processLinks(text: string): React.ReactNode[] {
 
   return nodes;
 }
-
-const ImLogo = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="w-9 h-9">
-    <rect width="100" height="100" rx="12" fill="#030806" />
-    <text x="50" y="65" fontFamily="Arial, sans-serif" fontSize="52" fontWeight="bold" fill="#00ff66" textAnchor="middle">
-      iM
-    </text>
-  </svg>
-);
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -227,9 +219,7 @@ export default function Chat() {
       <header className="glass-strong shimmer-border border-b border-im-border">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="relative w-9 h-9 rounded-lg bg-im-bg border border-im-border-bright flex items-center justify-center logo-glow">
-              <ImLogo />
-            </div>
+            <AnimatedLogo showText={false} />
             <div>
               <h1 className="text-base font-semibold text-im-text tracking-tight">
                 <span className="text-im-green">indications</span>
@@ -285,8 +275,8 @@ export default function Chat() {
         <div className="max-w-4xl mx-auto px-4 py-6 space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center animate-im-fade-in">
-              <div className="w-16 h-16 rounded-2xl bg-im-bg-2 border border-im-border-bright flex items-center justify-center mb-6 logo-glow">
-                <ImLogo />
+              <div className="mb-6">
+                <AnimatedLogo showText={false} />
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-gradient mb-3 font-mono">
                 indications-ai

@@ -372,3 +372,51 @@ details.reasoning-block .reasoning-body.animate-surge {
     opacity: 1;
   }
 }
+
+/* ============================================================
+   Animated Logo — from indicationsmedia.com
+   ============================================================ */
+
+/* Corner bracket blink */
+@keyframes logoCornerBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.3; }
+}
+
+/* Scan line sweep across monogram */
+@keyframes logoScan {
+  0% { top: -2px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: calc(100% + 2px); opacity: 0; }
+}
+
+/* Border glow pulse on monogram box */
+@keyframes logoBorderGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 4px rgba(0, 255, 102, 0.2),
+      inset 0 0 4px rgba(0, 255, 102, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(0, 255, 102, 0.4),
+      0 0 24px rgba(0, 255, 102, 0.1),
+      inset 0 0 8px rgba(0, 255, 102, 0.1);
+  }
+}
+
+/* Glitch clip effect on monogram */
+@keyframes logoGlitchClip {
+  0% { clip-path: inset(0 0 95% 0); }
+  10% { clip-path: inset(40% 0 20% 0); }
+  20% { clip-path: inset(80% 0 0% 0); }
+  30% { clip-path: inset(10% 0 70% 0); }
+  40% { clip-path: inset(50% 0 30% 0); }
+  50% { clip-path: inset(0 0 60% 0); }
+  60% { clip-path: inset(70% 0 10% 0); }
+  70% { clip-path: inset(20% 0 50% 0); }
+  80% { clip-path: inset(90% 0 0% 0); }
+  90% { clip-path: inset(30% 0 40% 0); }
+  100% { clip-path: inset(0 0 95% 0); }
+}
