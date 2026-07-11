@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import AnimatedLogo from './components/AnimatedLogo';
+import GlitchTitle from './components/GlitchTitle';
 
 const SUGGESTIONS = [
   { icon: '⚡', text: 'How can Indications Media AI transform my business?' },
@@ -229,8 +230,7 @@ export default function Chat() {
             <AnimatedLogo showText={false} />
             <div>
               <h1 className="text-base font-semibold text-im-text tracking-tight">
-                <span className="text-im-green">indications</span>
-                <span>-ai</span>
+                <GlitchTitle text="indications-ai" variant="header" />
               </h1>
               <div className="flex items-center gap-1.5 text-xs text-im-text-dim">
                 <span className="relative flex w-1.5 h-1.5">
@@ -285,8 +285,8 @@ export default function Chat() {
               <div className="mb-6">
                 <AnimatedLogo showText={false} />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gradient mb-3 font-mono">
-                indications-ai
+              <h2 className="text-3xl sm:text-4xl font-bold mb-3 font-mono">
+                <GlitchTitle text="indications-ai" variant="hero" />
               </h2>
               <p className="text-im-text-dim max-w-md mb-2 text-sm sm:text-base">
                 Web dev, AI integration, and cybersecurity expertise — on demand.
