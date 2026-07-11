@@ -114,7 +114,10 @@ function processLinks(text: string): React.ReactNode[] {
 
 export default function Chat() {
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status, error, regenerate, stop, setMessages } = useChat();
+  const playTickRef = useRef<() => void>(() => {});
+  const { messages, sendMessage, status, error, regenerate, stop, setMessages } = useChat({
+    onFinish: () => playTickRef.current(),
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -130,6 +133,7 @@ export default function Chat() {
       audioCtxRef.current = new (window.AudioContext as any)();
     }
     const ctx = audioCtxRef.current!;
+    if (ctx.state === 'suspended') ctx.resume();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
@@ -141,6 +145,9 @@ export default function Chat() {
     osc.start();
     osc.stop(ctx.currentTime + 0.05);
   }, [soundEnabled]);
+
+  // Keep ref in sync so onFinish always calls the latest playTick
+  playTickRef.current = playTick;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
