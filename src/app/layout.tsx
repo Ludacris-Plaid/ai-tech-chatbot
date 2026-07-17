@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Analytics from './components/Analytics';
 
 export const metadata: Metadata = {
   title: 'Indications Media AI — Web Dev, AI & Cybersecurity',
@@ -25,7 +26,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }
