@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   description:
     'AI-powered assistant for web development, AI integration, and cybersecurity questions. Built by Indications Media.',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
   },
 };
 
